@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Kill all running instances of jupyter
+
+jupids=$(ss -tlnp | grep 'jupyter' | awk -F'[=,]' '{print $3}' | sort | uniq)
+
+if [ -n "$jupids" ]; then
+    for jupid in $jupids
+    do
+        kill -15 "$jupid"
+    done
+        echo 'All instances of Jupyter were stopped.'
+else
+    echo "Jupyter isn't running."
+fi
+exit 0

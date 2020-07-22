@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Change your port and your notebook directory here:
+juport=8888
+judir="/home/$(whoami)/Documents/jupyter"
+
+jupid=$(ss -tlnp | grep ":$juport" | awk -F'[=,]' '{print $3}' | uniq)
+
+if [ -z "$jupid" ]; then
+    pushd . &> /dev/null
+    cd -- "$judir" || return 1
+    nohup jupyter notebook --port="$juport" &> /dev/null &
+    popd &> /dev/null || return 1
+    echo 'Jupyter was started.'
+    exit 0
+else
+    echo 'Jupyter is already running.'
+    exit 1
+fi
