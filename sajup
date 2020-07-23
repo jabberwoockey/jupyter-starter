@@ -12,6 +12,8 @@ if [ -z "$jupid" ]; then
     nohup jupyter notebook --port="$juport" &> /dev/null &
     popd &> /dev/null || return 1
     echo 'Jupyter was started.'
+    sleep 2s
+    jupyter notebook list
     exit 0
 else
     echo 'Jupyter is already running.'
