@@ -17,5 +17,6 @@ if [ -z "$jupid" ]; then
     exit 0
 else
     echo 'Jupyter is already running.'
+    jupyter notebook list
     exit 1
 fi
